@@ -190,3 +190,5 @@ sessions/
 # Docker volumes (if any)
 postgres_data/
 pgadmin_data/
+
+/generated/prisma

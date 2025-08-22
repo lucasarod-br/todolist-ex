@@ -1,9 +1,18 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const { isAuthenticated } = require('../middlewares/auth');
+const { findUserById } = require('../services/userService');
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+const router = express.Router();
+
+router.get('/profile', isAuthenticated, async (req, res, next) => {
+  try {
+    const { userId } = req.payload;
+    const user = await findUserById(userId);
+    delete user.password;
+    res.json(user);
+  } catch (err) {
+    next(err);
+  }
 });
 
 module.exports = router;
