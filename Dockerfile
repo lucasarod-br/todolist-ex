@@ -8,4 +8,7 @@ RUN npm ci
 
 COPY . .
 
-CMD ["sh", "-c", "npm run start"]
+RUN npx prisma generate
+
+CMD ["sh", "-c", "npm run db:deploy && npm run start"]
+
